@@ -1,0 +1,11 @@
+.vscode/
+out/
+outdbg/
+outrelease/
+.ccls
+.ccls-cache/
+editables/
+
+# you wanna use Vim? gotchu
+*.*~
+*.swp

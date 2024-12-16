@@ -1,0 +1,48 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "mingw-dbg",
+            "displayName": "Configuración para la compilación del proyecto para producción",
+            "description": "Establece el generador MSYS Makefiles, compilación e instalación del directorio",
+            "generator": "MSYS Makefiles",
+            "binaryDir": "${sourceDir}/outdbg/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_TOOLCHAIN_FILE": "",
+                "CMAKE_INSTALL_PREFIX": "{sourceDir}/outdbg/install/${presetName}",
+                "DONT_SHOW_DETAILS": "OFF"
+            }
+        },
+        {
+            "name": "Configuración de valores preestablecidos mediante el archivo de cadena de herramientas",
+            "displayName": "Configuración de valores preestablecidos mediante el archivo de cadena de herramientas",
+            "description": "Establece el generador Ninja, compilación e instalación del directorio",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_TOOLCHAIN_FILE": "",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "DONT_SHOW_DETAILS": "OFF"
+            }
+        },
+        {
+            "name": "mingw-rel",
+            "displayName": "Configuración para la compilación del proyecto para producción",
+            "description": "Establece el generador MSYS Makefiles, compilación e instalación del directorio",
+            "generator": "MSYS Makefiles",
+            "binaryDir": "${sourceDir}/outrelease/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_TOOLCHAIN_FILE": "",
+                "CMAKE_INSTALL_PREFIX": "{sourceDir}/outrelease/install/${presetName}",
+                "DONT_SHOW_DETAILS": "ON"
+            }
+        }
+    ]
+}
