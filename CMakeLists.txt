@@ -14,6 +14,9 @@ set(BUILD_EXAMPLES OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(raylib)
 
 # Our project
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED true)
+
 set(TO_COMPILE_FILES main.cpp)
 option(DONT_SHOW_DETAILS OFF)
 
