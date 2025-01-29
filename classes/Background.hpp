@@ -13,17 +13,18 @@ private:
     Texture foregroundTexture;
     Rectangle fieldSize;
 
-    // shooting area bounds
-    static constexpr u16 shootingAreaWidth = 1280U;
-    static constexpr u16 shootingAreaHeight = (720U - 280U);
 public:
     Background() noexcept;
-    virtual void update() noexcept override;
-    virtual void render() noexcept override;
-    virtual ~Background() noexcept override;
+    void update() noexcept override;
+    void render() noexcept override;
+    ~Background() noexcept override;
 
-    static constexpr u16 width = shootingAreaWidth;
+    static constexpr u16 width = 1280U;
     static constexpr u16 height = 720U;
+
+    // shooting area bounds
+    static constexpr u16 shootingAreaWidth = width;
+    static constexpr u16 shootingAreaHeight = (720U - 280U);
 
     static const std::string_view texturePath;
 };

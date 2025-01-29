@@ -29,14 +29,16 @@ using u64 = std::uint64_t;
 // may not even work as a signed version of size_t since ssize_t may
 // be implemented to only accept -1 for negative numbers)
 
-// typedefs for long C++ standard library types
+// typedefs for long C++ standard library types (decided to respect their
+// original naming conventions)
 
-using instant = std::chrono::time_point<std::chrono::system_clock>;
+using stopwatch = std::chrono::steady_clock;
+using instant = std::chrono::time_point<stopwatch>;
 using micros = std::chrono::microseconds;
 using millis = std::chrono::milliseconds;
 using secs = std::chrono::seconds;
 
 // I decided not to alias std::string_view since it's not that bad to type
-// (unlike std::chrono::time_point<std::chrono::system_clock>)
+// (unlike std::chrono::time_point<std::chrono::steady_clock>)
 
 #endif

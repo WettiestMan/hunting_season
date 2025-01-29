@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.30)
 
-project(hunting_season VERSION 0.1.0 LANGUAGES C CXX)
+project(hunting_season VERSION 0.2.0 LANGUAGES C CXX)
 
 # Libraries to install
 include(FetchContent)
@@ -14,6 +14,9 @@ set(BUILD_EXAMPLES OFF CACHE INTERNAL "")
 FetchContent_MakeAvailable(raylib)
 
 # Our project
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED true)
+
 set(TO_COMPILE_FILES main.cpp)
 option(DONT_SHOW_DETAILS OFF)
 

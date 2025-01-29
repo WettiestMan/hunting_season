@@ -6,18 +6,22 @@
 
 #include "base/IGameEntity.hpp"
 #include "defs/TypeAliasses.hpp"
+#include "Game.hpp"
 
 class Crosshair : public IGameEntity {
 private:
-    Texture blasts[2];
+    Game& game;
+
+    static constexpr size_t framesSize = 2;
+    Texture blasts[framesSize];
     Texture cross;
+
     Vector2 position;
     u16 width;
     u16 height;
     Vector2 lastPressedPosition;
 
     bool shotTriggered;
-    bool showBlastFrames;
     instant shotTriggeredInstant;
     u8 blastSelectedTexture;
 
@@ -36,7 +40,7 @@ private:
     static constexpr millis blastFrameDisplayTime { 500 };
 
 public:
-    Crosshair() noexcept;
+    Crosshair(Game& g) noexcept;
     virtual void update() noexcept override;
     virtual void render() noexcept override;
     virtual ~Crosshair() noexcept override;
