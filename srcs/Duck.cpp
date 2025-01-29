@@ -130,7 +130,7 @@ void Duck::movementFunctionParabolic() noexcept {
 
 // f(y) = xf. Let xf be the x coordinate where the duck was killed
 void Duck::movementFunctionDeath() noexcept {
-    position.y--;
+    position.y++;
 }
 
 void Duck::duckRender() noexcept {

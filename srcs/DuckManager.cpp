@@ -58,6 +58,11 @@ void DuckManager::update() {
             }
         }
     }
+
+    if (auto currentTime = stopwatch::now(); ltime::duration_cast<millis>(currentTime - lastSpawned) >= spawnRate) {
+        ducks.emplace_back();
+        lastSpawned = std::move(currentTime);
+    }
 }
 
 void DuckManager::render() noexcept {

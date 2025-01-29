@@ -3,20 +3,20 @@ This seems to be an attempt of using Kanban methodology
 things to do:
 
 - Maybe how to rotate a sprite to indicate position?
-- Points and record
-- Game over
 - Maybe an intro
 - Do you really like the project's name?
 
 things in progress (3 max):
 
-- Hit detection
 - The art
-- Ducks and their movement
+- Points and record
+- Game over
 
 should I test?
 
 - Define my entities (IGameEntity(an interface), Background, Crosshair, Duck, DuckGenerator, PointDisplayer, Sounds, Game(an application class with program scope members). Less important: AmmoPack, AmmoPackGenerator, AmmoDisplayer)
+- Ducks and their movement
+- Hit detection
 
 finished!!!
 

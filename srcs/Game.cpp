@@ -14,7 +14,8 @@
 
 Game::Game(std::span<char*> args) : points{0},
                                      bullets{initialBullets},
-                                     registeredShot{std::nullopt}
+                                     registeredShot{std::nullopt},
+                                     shutdown{false}
 {
     SetRandomSeed(std::time(nullptr));
     InitWindow(Background::width, Background::height, "BONUS DUCKS");
@@ -32,12 +33,13 @@ void Game::loadMainEntities() {
     mainEntities.reserve(8);
 
     mainEntities.emplace_back(new Background());
-    //mainEntities.emplace_back(new Crosshair(*this));
-    //mainEntities.emplace_back(new Duck());
+    mainEntities.emplace_back(new Crosshair(*this));
+    mainEntities.emplace_back(new DuckManager(*this));
 }
 
 void Game::mainLoop() {
     while (!WindowShouldClose()) {
+        BeginDrawing();
         for (auto&& entity : mainEntities) {
             entity->update();
             entity->render();
@@ -46,6 +48,9 @@ void Game::mainLoop() {
         if (bullets == 0) {
             showGameOver();
         }
+        EndDrawing();
+        if (shutdown)
+            CloseWindow();
     }
 }
 
@@ -98,6 +103,6 @@ void Game::resetStats() noexcept {
     bullets = initialBullets;
 }
 
-[[noreturn]] void Game::showGameOver() {
-    std::exit(0); // for the moment
+void Game::showGameOver() {
+    shutdown = true;
 }

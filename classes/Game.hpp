@@ -15,6 +15,7 @@ private:
     std::vector<std::unique_ptr<IGameEntity>> mainEntities;
     u32 points;
     u32 bullets;
+    bool shutdown;
 
     std::optional<Vector2> registeredShot;
 
@@ -31,7 +32,7 @@ public:
     void addBullets(u32 amount) noexcept;
     void substractBullets(u32 amount) noexcept;
 
-    [[noreturn]] void showGameOver();
+    void showGameOver();
 
     void resetStats() noexcept;
 
