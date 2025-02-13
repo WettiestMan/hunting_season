@@ -50,7 +50,7 @@ void Game::mainLoop() {
         }
         EndDrawing();
         if (shutdown)
-            CloseWindow();
+            break;
     }
 }
 

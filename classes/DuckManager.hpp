@@ -4,6 +4,7 @@
 #include "raylib.h"
 
 #include <list>
+#include <string_view>
 
 #include "base/IGameEntity.hpp"
 #include "defs/TypeAliasses.hpp"
@@ -11,11 +12,17 @@
 #include "Game.hpp"
 
 class DuckManager : public IGameEntity {
+public:
+    constexpr static size_t duckSpritesSize = 4;
+
 private:
     Game& game;
     std::list<Duck> ducks;
     instant lastSpawned;
     millis spawnRate;
+    Texture duckSprites[duckSpritesSize];
+    static const std::string_view duckSpritesPaths[duckSpritesSize]; // the first two are the flying sprites, the last two (coming soon) are the dying sprites
+    bool spritesLoadError;
 
     static constexpr millis defaultSpawnRate {2000};
     static constexpr u32 outOfScreenSafeZone = 20;
@@ -27,18 +34,8 @@ public:
     ~DuckManager() noexcept override;
 
 private:
-    inline bool isDuckOutOfScreen(typename decltype(ducks)::iterator duck) {
-        const auto duckPos = duck->getPosition();
+    bool isDuckOutOfScreen(typename decltype(ducks)::iterator duck);
 
-        const bool isOutOfScreen = ((duckPos.x <= (0 - (i32)Duck::width - (i32)outOfScreenSafeZone))
-                                   || (duckPos.x >= (Background::width + outOfScreenSafeZone))
-                                   || (duckPos.y <= (0 - (i32)Duck::height - (i32)outOfScreenSafeZone))
-                                   || (duckPos.y >= (Background::height + outOfScreenSafeZone)));
-
-        return isOutOfScreen;
-    };
-
-    
 };
 
 #endif
