@@ -3,6 +3,8 @@
 #include <list>
 #include <algorithm>
 #include <string_view>
+#include <chrono>
+#include <utility>
 
 #include "classes/base/IGameEntity.hpp"
 #include "classes/defs/TypeAliasses.hpp"
@@ -36,7 +38,7 @@ DuckManager::DuckManager(Game& g) : IGameEntity(),
             spritesLoadError = true;
             TraceLog(LOG_WARNING, R"(Couldn't load asset "%s". Game will choose a box for the duck instead)", duckSpritesPaths[i].data());
         }
-        UnloadImage(imgs[i]);
+        else UnloadImage(imgs[i]);
     }
 
     ducks.emplace_back((!spritesLoadError) ? duckSprites : nullptr);
@@ -96,15 +98,15 @@ void DuckManager::render() noexcept {
 }
 
 bool DuckManager::isDuckOutOfScreen(typename decltype(ducks)::iterator duck) {
-        const auto duckPos = duck->getPosition();
+    const auto duckPos = duck->getPosition();
 
-        const bool isOutOfScreen = ((duckPos.x <= (0 - (i32)Duck::width - (i32)outOfScreenSafeZone))
-                                   || (duckPos.x >= (Background::width + outOfScreenSafeZone))
-                                   || (duckPos.y <= (0 - (i32)Duck::height - (i32)outOfScreenSafeZone))
-                                   || (duckPos.y >= (Background::height + outOfScreenSafeZone)));
+    const bool isOutOfScreen = ((duckPos.x <= (0 - (i32)Duck::width - (i32)outOfScreenSafeZone))
+                                || (duckPos.x >= (Background::width + outOfScreenSafeZone))
+                                || (duckPos.y <= (0 - (i32)Duck::height - (i32)outOfScreenSafeZone))
+                                || (duckPos.y >= (Background::height + outOfScreenSafeZone)));
 
-        return isOutOfScreen;
-    };
+    return isOutOfScreen;
+};
 
 DuckManager::~DuckManager() {
     fn::for_each(duckSprites, [](Texture& tx){ if (tx.id > 0) UnloadTexture(tx); });

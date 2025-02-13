@@ -78,16 +78,17 @@ u32 Game::getBullets() const noexcept {
 
 void Game::addBullets(u32 amount) noexcept {
     bullets += amount;
-    #ifndef DONT_SHOW_DETAILS
     TraceLog(LOG_INFO, "bullets: %d", bullets);
-    #endif
 }
 
 void Game::substractBullets(u32 amount) noexcept {
     bullets -= amount;
-    #ifndef DONT_SHOW_DETAILS
     TraceLog(LOG_INFO, "Bullets: %d", bullets);
-    #endif
+}
+
+void Game::resetBullets() noexcept {
+    bullets = initialBullets;
+    TraceLog(LOG_INFO, "Bullets: %d", bullets);
 }
 
 const std::optional<Vector2>& Game::getRegisteredShot() const noexcept {

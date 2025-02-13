@@ -19,12 +19,13 @@ private:
     Game& game;
     std::list<BulletPack> bulletPacks;
     instant lastSpawned;
+    millis spawnRate;
     Texture sprites[bpacksSpritesSize];
     static const std::string_view spritesPaths[bpacksSpritesSize];
     bool spritesLoadError;
 
     static constexpr millis defaultSpawnRate {6000};
-    static constexpr u32 defaultSafeZone = 20;
+    static constexpr u32 outOfScreenSafeZone = 20;
 
 public:
     BulletManager(Game& g);

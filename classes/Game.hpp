@@ -31,6 +31,7 @@ public:
     u32 getBullets() const noexcept;
     void addBullets(u32 amount) noexcept;
     void substractBullets(u32 amount) noexcept;
+    void resetBullets() noexcept;
 
     void showGameOver();
 
