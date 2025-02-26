@@ -20,7 +20,7 @@ private:
 
     Vector2 position;
     Vector2 initialPosition;
-    i32 PositionPeakY;
+    instant spawnInstant; // Used for movement
     instant lastMove;
     instant lastSpriteSwitch;
     bool alive;
@@ -36,6 +36,10 @@ public:
     void kill() noexcept;
     bool isAlive() const noexcept;
     Vector2 getPosition() const noexcept;
+
+private:
+    void bpackRender() noexcept;
+    void bpackRender_ErrorCase() noexcept;
 };
 
 #endif

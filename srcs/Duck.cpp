@@ -3,15 +3,14 @@
 #include <string_view>
 #include <algorithm>
 #include <numbers>
+#include <chrono>
 
 #include "classes/base/IGameEntity.hpp"
 #include "classes/defs/TypeAliasses.hpp"
 #include "classes/Duck.hpp"
-#include "classes/DuckManager.hpp"
 #include "classes/Background.hpp"
 
 namespace ltime = std::chrono;
-namespace fn = std::ranges;
 
 Duck::Duck(const Texture* tx) noexcept : IGameEntity(),
                         textureLoadError{false},
@@ -114,10 +113,10 @@ void Duck::movementFunctionDeath() noexcept {
 }
 
 void Duck::duckRender() noexcept {
-    DrawTexture(
+    DrawTextureRec(
         spritesBufferPtr[selectedSprite],
-        static_cast<i32>(position.x),
-        static_cast<i32>(position.y),
+        Rectangle{0.0f, 0.0f, (float)(origin == Origin::LEFT_SIDE) ? Duck::width : -(i16)Duck::width, Duck::height},
+        position,
         WHITE
     );
 }

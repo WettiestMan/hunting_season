@@ -9,15 +9,15 @@ things to do:
 things in progress (3 max):
 
 - The art
-- Points and record
-- Game over
 
 should I test?
 
 - Define my entities (IGameEntity(an interface), Background, Crosshair, Duck, DuckGenerator, PointDisplayer, Sounds, Game(an application class with program scope members). Less important: AmmoPack, AmmoPackGenerator, AmmoDisplayer)
 - Ducks and their movement
-- Hit detection
 
 finished!!!
 
 - Learn how to load textures
+- Hit detection
+- Points and record
+- Game over

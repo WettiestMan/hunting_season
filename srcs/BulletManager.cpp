@@ -12,8 +12,8 @@ namespace ltime = std::chrono;
 namespace fn = std::ranges;
 
 const std::string_view BulletManager::spritesPaths[BulletManager::bpacksSpritesSize] = {R"(./assets/bullet_pack_left.png)",
-                                                        R"(./assets/bullet_pack_up.png)", R"(./assets/bullet_pack_down.png)",
-                                                        R"(./assets/bullet_pack_right.png)"};
+                                                        R"(./assets/bullet_pack_up.png)", R"(./assets/bullet_pack_right.png)",
+                                                        R"(./assets/bullet_pack_down.png)"};
 
 BulletManager::BulletManager(Game& g) : IGameEntity(),
                                         game{g},
@@ -41,7 +41,7 @@ BulletManager::BulletManager(Game& g) : IGameEntity(),
     lastSpawned = stopwatch::now();
 }
 
-void BulletManager::update() {
+void BulletManager::update() noexcept {
     const auto possibleShot = game.getRegisteredShot();
 
     if  (possibleShot.has_value()) {
@@ -89,7 +89,7 @@ void BulletManager::update() {
     }
 }
 
-void BulletManager::render() noexcept {
+void BulletManager::render() {
     for (auto& bpack : bulletPacks) {
         bpack.update();
         bpack.render();

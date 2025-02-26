@@ -64,6 +64,10 @@ void DuckManager::update() {
             }
 
             if (isDuckOutOfScreen(duck)) {
+                if (duck->isAlive()) {
+                    game.addMissedDucks(1);
+                }
+
                 duck = ducks.erase(duck);
             }
             else {
@@ -76,6 +80,10 @@ void DuckManager::update() {
         const auto finish = ducks.end();
         while(duck != finish) {
             if (isDuckOutOfScreen(duck)) {
+                if (duck->isAlive()) {
+                    game.addMissedDucks(1);
+                }
+
                 duck = ducks.erase(duck);
             }
             else {

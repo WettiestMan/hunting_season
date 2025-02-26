@@ -6,7 +6,8 @@ add_library(classes Background.cpp
                     Game.cpp
                     DuckManager.cpp
                     BulletPack.cpp
-                    BulletManager.cpp)
+                    BulletManager.cpp
+                    StatsDisplayer.cpp)
 
 target_include_directories(classes INTERFACE
                           ${CMAKE_CURRENT_SOURCE_DIR})
