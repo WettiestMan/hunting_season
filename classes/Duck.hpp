@@ -7,8 +7,7 @@
 #include "defs/TypeAliasses.hpp"
 #include "Background.hpp"
 
-class Duck : public IGameEntity
-{
+class Duck : public IGameEntity {
 public:
     // So it can still be used by the private members down there
     static constexpr u16 width = 128U;
@@ -20,7 +19,7 @@ private:
     using MovementFuncT = void(Duck::*)();
 
     static constexpr size_t spritesSize = 4;
-    Texture sprites[spritesSize];
+    const Texture* spritesBufferPtr;
     size_t selectedSprite;
     bool textureLoadError;
     void(Duck::*selectedRenderFunction)();
@@ -46,15 +45,14 @@ private:
     MovementFuncT selectedMovement;
 
 public:
-    Duck() noexcept;
+    Duck(const Texture* dm) noexcept;
     void render() noexcept override;
     void update() noexcept override;
     ~Duck() noexcept override;
+
     void kill() noexcept;
     bool isAlive() const noexcept;
     Vector2 getPosition() const noexcept;
-
-    static const std::string_view texturePaths[spritesSize]; // the first two are the flying sprites, the last two (coming soon) are the dying sprites
 
 private:
     void movementFunctionConstant() noexcept;

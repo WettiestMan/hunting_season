@@ -3,6 +3,7 @@
 #include <string_view>
 #include <algorithm>
 #include <numbers>
+#include <chrono>
 
 #include "classes/base/IGameEntity.hpp"
 #include "classes/defs/TypeAliasses.hpp"
@@ -10,38 +11,16 @@
 #include "classes/Background.hpp"
 
 namespace ltime = std::chrono;
-namespace fn = std::ranges;
 
-// path init (now that I think about it, I might make them constexpr and initialize them directly inside the header file)
-const std::string_view Duck::texturePaths[Duck::spritesSize] = {R"(./assets/duck_spr_up.png)", R"(./assets/duck_spr_down.png)",
-                                                                R"(./assets/duck_spr_dead_left.png)", R"(./assets/duck_spr_dead_right.png)"};
-
-Duck::Duck() noexcept : IGameEntity(),
+Duck::Duck(const Texture* tx) noexcept : IGameEntity(),
                         textureLoadError{false},
                         lastMove{ltime::steady_clock::now()},
                         lastFlap{ltime::steady_clock::now()},
                         movementFunctions{&movementFunctionConstant, &movementFunctionSine, &movementFunctionParabolic},
-                        alive{true}
+                        alive{true},
+                        spritesBufferPtr{tx}
 {
-    Image imgs[spritesSize] = {0};
-    for (size_t f = 0; f < spritesSize; ++f) {
-        imgs[f] = LoadImage(texturePaths[f].data());
-    }
-
-    for (size_t i = 0; i < spritesSize; ++i) {
-        sprites[i] = LoadTextureFromImage(imgs[i]);
-    }
-
-    for (size_t i = 0; i < spritesSize; ++i) {
-        if (sprites[i].id <= 0) {
-            TraceLog(LOG_WARNING, R"(Couldn't load asset "%s". Game will choose a box for the duck instead)", texturePaths[i].data());
-            textureLoadError = true;
-        }
-        else {
-            UnloadImage(imgs[i]);
-        }
-    }
-    selectedRenderFunction = (!textureLoadError) ? &duckRender : &duckRender_ErrorCase;
+    selectedRenderFunction = (spritesBufferPtr != nullptr) ? &duckRender : &duckRender_ErrorCase;
 
     selectedSprite = GetRandomValue(0, 1);
 
@@ -81,7 +60,7 @@ bool Duck::isAlive() const noexcept {
 }
 
 Duck::~Duck() noexcept {
-    fn::for_each(sprites, [](Texture& tx){ if(tx.id >= 0) UnloadTexture(tx);});
+    // DuckManager takes care of this...
 }
 
 // f(x) = yi
@@ -134,10 +113,10 @@ void Duck::movementFunctionDeath() noexcept {
 }
 
 void Duck::duckRender() noexcept {
-    DrawTexture(
-        sprites[selectedSprite],
-        static_cast<i32>(position.x),
-        static_cast<i32>(position.y),
+    DrawTextureRec(
+        spritesBufferPtr[selectedSprite],
+        Rectangle{0.0f, 0.0f, (float)(origin == Origin::LEFT_SIDE) ? Duck::width : -(i16)Duck::width, Duck::height},
+        position,
         WHITE
     );
 }

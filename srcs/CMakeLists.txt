@@ -1,6 +1,13 @@
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(classes Background.cpp Crosshair.cpp Duck.cpp Game.cpp DuckManager.cpp)
+add_library(classes Background.cpp
+                    Crosshair.cpp
+                    Duck.cpp
+                    Game.cpp
+                    DuckManager.cpp
+                    BulletPack.cpp
+                    BulletManager.cpp
+                    StatsDisplayer.cpp)
 
 target_include_directories(classes INTERFACE
                           ${CMAKE_CURRENT_SOURCE_DIR})
